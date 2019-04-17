@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Intersected Color Rectangles
+	</title>
+</head>
+<body>
+	<canvas id="mycanvas" width="850" height="700" style="border:1px solid #000000; "></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('mycanvas');
+		var ctx = canvas.getContext('2d');
+
+		ctx.beginPath();
+		ctx.fillStyle = 'rgb(255, 000,000)';
+		ctx.fillRect(50, 50, 150, 100);
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.rect(200, 150, 250, 200);
+		ctx.lineWidth = 40;
+		ctx.strokeStyle = 'rgb(000,000,255)';
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.rect(450, 350, 350, 300);
+		ctx.lineWidth = 20;
+		ctx.strokeStyle = 'rgb(000,255,000)';
+		ctx.closePath();
+		ctx.stroke();
+	</script>
+</body>
+</html>

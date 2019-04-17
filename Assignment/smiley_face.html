@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Smiley Face | Canvas</title>
+<style type="text/css">
+#smiley {
+    border: 3px solid #990000;
+    background: #ffd3d3;
+}
+</style>
+</head>
+<body>
+	<canvas id="smiley" width="550" height="500"></canvas>
+	<script type="text/javascript">
+
+		var canvas = document.getElementById("smiley");
+		var ctx = canvas.getContext("2d");
+
+		draw_smiley_face(canvas, 
+		{
+		    fill: '#FFFF00',
+		    x: canvas.width / 2,
+		    y: canvas.height / 2,
+		    r : 170
+		});
+
+		function draw_face(canvas, ob, ctx) 
+		{
+		    ctx.save();
+		    ctx.lineWidth = ob.r * 0.075;
+		    ctx.strokeStyle = ob.lineColor;
+		    ctx.beginPath();
+		    ctx.arc(ob.x, ob.y, ob.r, ob.star_ang, ob.end_ang);
+		    ctx.stroke();
+		    ctx.fillStyle = ob.fill;
+		    ctx.fill();
+		    ctx.restore();
+		}
+
+		function draw_smile(canvas, ob, f_smile, ctx)
+		{
+		    var r = 40 * ob.r * 0.0125;
+		    var x = ob.x;
+		    var y, star_ang, end_ang;
+		        
+		    if (f_smile) 
+		    {
+		        y = ob.y + ob.r * 0.7;
+		        star_ang = -Math.PI * 0.85; //Math.PI * 0.1;
+		        end_ang = -0.5; //-Math.PI * 1.1;
+		    }
+		    else 
+		    {
+		        y = ob.y + ob.r * 0.1;
+		        star_ang = Math.PI * 0.1;
+		        end_ang = -Math.PI * 1.1;
+		    }
+
+		    ctx.save();
+		    ctx.beginPath();
+		    ctx.arc(x, y, r, star_ang, end_ang);
+		    ctx.lineWidth = ob.r * 0.1;
+		    ctx.strokeStyle = ob.lineColor;
+		    ctx.stroke();
+		    ctx.restore();
+		}
+
+		function draw_eyes(canvas, ob, ctx) 
+		{
+		    var xOffset = ob.r * 0.5;
+		    var r = ob.r * 0.15;
+
+		    draw_eye(canvas, ob, xOffset, 0, r, ctx); // Left
+		    draw_eye(canvas, ob, -xOffset, 0, r, ctx); // Right
+		}
+
+		function draw_eye(canvas, ob, c_x, c_y, r, ctx)
+		{
+		    ctx.save();
+		    ctx.translate(ob.x, ob.y - (ob.r / 3));
+		    ctx.scale(0.65, 1);
+		    ctx.beginPath();
+		    ctx.arc(c_x, c_y, r, 0, 2 * Math.PI, false);
+		    ctx.fillStyle = ob.lineColor;
+		    ctx.fill();
+		    ctx.lineWidth = r * 0.75;
+		    ctx.strokeStyle = ob.lineColor;
+		    ctx.stroke();
+		    ctx.restore();
+		}
+
+		function draw_smiley_face(canvas, ob, f_smile) 
+		{
+		    ob = ob || {};
+		    
+		    var defaultr = 48;
+		    var options = {
+		        x: ob.x || (defaultr / 0.9),
+		        y: ob.y || (defaultr / 0.9),
+		        r: ob.r || defaultr,
+		        star_ang: 0,
+		        end_ang: 2 * Math.PI,
+		        fill: ob.fill || 'yellow',
+		        lineColor: ob.lineColor || 'black'
+		    };
+		    
+		    draw_face(canvas, options, ctx);
+		    draw_eyes(canvas, options, ctx);
+		    draw_smile(canvas, options, f_smile, ctx);
+		}
+
+	</script>
+</body>
+</html>
